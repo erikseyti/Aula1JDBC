@@ -25,13 +25,22 @@ public class AulaPOO {
         {
             String resposta = "";
             //conexão feita com o banco de dados
+            
             Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Aula1","postgres","postgres");
+            /*erik
+            
+            conn.prepareCall("DROP TABLE CLIENTE").execute();
+            conn.prepareCall("create table cliente\n"+
+                    "id serial not null\n"+
+                    "nome varchar(50)\n"+
+                    "constraint pk_cliente primary key (id)\n"+");").execute();
+            */
             do{
             
             Scanner scam = new Scanner(System.in);
             System.out.println("Digite o seu nome");
             String  nome = scam.next();
-            System.out.println(nome);
+            
                 PreparedStatement ps = conn.prepareStatement("INSERT INTO CLIENTE (NOME) VALUES (?)");
                 ps.setString(1, nome);
                 ps.execute();
