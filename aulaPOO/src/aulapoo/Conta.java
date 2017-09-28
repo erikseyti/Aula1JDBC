@@ -14,28 +14,32 @@ import java.util.Scanner;
  *
  * @author Aluno
  */
-public class AulaPOO {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        try
+public class Conta {
+    public static void main(String[] args)
+    {
+    try
         {
             String resposta = "";
             //conexão feita com o banco de dados
             Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Aula1","postgres","postgres");
             do{
+            Scanner scam = new Scanner(System.in); 
             
-            Scanner scam = new Scanner(System.in);
-            System.out.println("Digite o seu nome");
-            String  nome = scam.next();
-            System.out.println(nome);
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO CLIENTE (NOME) VALUES (?)");
-                ps.setString(1, nome);
+            System.out.println("Digite o Valor de seu Saldo");
+            String  saldo = scam.next();
+            
+            double valorSaldo = Double.parseDouble(saldo);
+            
+            System.out.println("Digite o Valor de seu ID do Cliente");
+            String  idCliente = scam.next();
+            Integer valorIdCliente = Integer.parseInt(idCliente);
+     
+            
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO CONTA (SALDO,IDCLIENTE) VALUES (?,?)");
+                ps.setDouble(1, valorSaldo);
+                ps.setInt(2,valorIdCliente);
                 ps.execute();
-            System.out.println("Deseja digitar outro nome? sim ou nao");
+            System.out.println("Deseja digitar outro saldo? sim ou nao");
             resposta = scam.next();
             }
             while(resposta.equals("sim"));
@@ -44,6 +48,7 @@ public class AulaPOO {
             {
             e.printStackTrace();
             }
+    
     }
     
 }
