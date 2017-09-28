@@ -7,6 +7,7 @@ package aulapoo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.Scanner;
 
 /**
@@ -23,14 +24,17 @@ public class AulaPOO {
         try
         {
             String resposta = "";
-            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Aula1","postgres","postgres");
+            //conexão feita com o banco de dados
+            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Aerula1","postgres","postgres");
             do{
             
             Scanner scam = new Scanner(System.in);
             System.out.println("Digite o seu nome");
             String  nome = scam.next();
             System.out.println(nome);
-            
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO CLIENTE (NOME) VALUES (?)");
+                ps.setString(1, nome);
+                ps.execute();
             System.out.println("Deseja digitar outro nome? sim ou nao");
             resposta = scam.next();
             }
