@@ -8,13 +8,31 @@ package aulapoo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Aluno
  */
 public class ConexaoJDBC {
+    
+    private static Connection conn;
+    
+    public static synchronized Connection getConexao()
+    {
+        if(conn ==null)
+        {
+            try {
+                conn = DriverManager.getConnection("","","");
+            } catch (SQLException ex) {
+                Logger.getLogger(ConexaoJDBC.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    return conn;
+    }
     
     
     public void conexao(){
